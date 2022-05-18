@@ -47,6 +47,8 @@ namespace BurmistrovTech.Extensions.DependencyResolver
 
         public ValueTask DisposeAsync()
         {
+            if (_disposed) return default;
+            
             if (_serviceProvider is IAsyncDisposable ad)
             {
                 _disposed = true;
