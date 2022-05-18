@@ -11,6 +11,8 @@ namespace BurmistrovTech.Extensions.DependencyResolver
     {
         public static IServiceCollection AddControllers(this IServiceCollection services)
         {
+            if (services == null) throw new ArgumentNullException(nameof(services));
+
             var controllers = Assembly.GetExecutingAssembly().ExportedTypes
                 .Where(t => !t.IsAbstract && !t.IsGenericTypeDefinition)
                 .Where(t => typeof(IHttpController).IsAssignableFrom(t)
@@ -26,6 +28,8 @@ namespace BurmistrovTech.Extensions.DependencyResolver
 
         public static IDependencyResolver ToDependencyResolver(this IServiceCollection services)
         {
+            if (services == null) throw new ArgumentNullException(nameof(services));
+            
             var serviceProvider = services.BuildServiceProvider();
             
             return new DependencyInjectionResolver(serviceProvider);
