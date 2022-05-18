@@ -9,14 +9,14 @@ namespace BurmistrovTech.Extensions.DependencyResolver
         public static T GetService<T>(this IDependencyScope scope)
         {
             if (scope == null) throw new ArgumentNullException(nameof(scope));
-            
+
             return (T) scope.GetService(typeof(T));
         }
 
         public static IEnumerable<T> GetServices<T>(this IDependencyScope scope)
         {
             if (scope == null) throw new ArgumentNullException(nameof(scope));
-            
+
             return (IEnumerable<T>) scope.GetServices(typeof(T));
         }
 
@@ -24,7 +24,9 @@ namespace BurmistrovTech.Extensions.DependencyResolver
         {
             if (serviceType == null) throw new ArgumentNullException(nameof(serviceType));
 
-            return scope.GetService(serviceType) ?? throw new InvalidOperationException("");
+            return scope.GetService(serviceType) ??
+                   throw new InvalidOperationException(
+                       "Unable to resolve service for type while attempting to activate");
         }
 
         public static T GetRequiredService<T>(this IDependencyScope scope)
@@ -32,6 +34,15 @@ namespace BurmistrovTech.Extensions.DependencyResolver
             if (scope == null) throw new ArgumentNullException(nameof(scope));
 
             return (T) scope.GetRequiredService(typeof(T));
+        }
+
+        public static AsyncDependencyScope BeginAsyncScope(this IDependencyResolver resolver)
+        {
+            if (resolver == null) throw new ArgumentNullException(nameof(resolver));
+
+            var scope = resolver.BeginScope();
+
+            return new AsyncDependencyScope(scope);
         }
     }
 }
