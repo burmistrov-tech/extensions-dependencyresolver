@@ -8,17 +8,17 @@ namespace BurmistrovTech.Extensions.DependencyResolver
 {
     public class DependencyInjectionResolver : IDependencyInjectionResolver
     {
-        internal readonly IServiceProvider ServiceProvider;
+        private readonly IServiceProvider _serviceProvider;
         private bool _disposed;
 
         public DependencyInjectionResolver(IServiceProvider serviceProvider)
         {
-            ServiceProvider = serviceProvider ?? throw new ArgumentNullException(nameof(serviceProvider));
+            _serviceProvider = serviceProvider ?? throw new ArgumentNullException(nameof(serviceProvider));
         }
 
         public IDependencyScope BeginScope()
         {
-            var scope = ServiceProvider.CreateScope();
+            var scope = _serviceProvider.CreateScope();
 
             return new DependencyInjectionResolver(scope.ServiceProvider);
         }
@@ -27,19 +27,19 @@ namespace BurmistrovTech.Extensions.DependencyResolver
         {
             if (serviceType == null) throw new ArgumentNullException(nameof(serviceType));
             
-            return ServiceProvider.GetService(serviceType);
+            return _serviceProvider.GetService(serviceType);
         }
 
         public IEnumerable<object> GetServices(Type serviceType)
         {
             if (serviceType == null) throw new ArgumentNullException(nameof(serviceType));
             
-            return ServiceProvider.GetServices(serviceType);
+            return _serviceProvider.GetServices(serviceType);
         }
 
         public void Dispose()
         {
-            if (_disposed || !(ServiceProvider is IDisposable disposable)) return;
+            if (_disposed || !(_serviceProvider is IDisposable disposable)) return;
             
             _disposed = true;
             disposable.Dispose();
@@ -47,7 +47,7 @@ namespace BurmistrovTech.Extensions.DependencyResolver
 
         public ValueTask DisposeAsync()
         {
-            if (ServiceProvider is IAsyncDisposable ad)
+            if (_serviceProvider is IAsyncDisposable ad)
             {
                 _disposed = true;
                 return ad.DisposeAsync();
