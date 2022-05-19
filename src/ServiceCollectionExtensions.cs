@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Reflection;
 using System.Web.Http.Controllers;
-using System.Web.Http.Dependencies;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace BurmistrovTech.Extensions.DependencyResolver

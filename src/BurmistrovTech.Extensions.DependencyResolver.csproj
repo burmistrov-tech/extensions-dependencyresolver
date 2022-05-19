@@ -2,6 +2,14 @@
 
     <PropertyGroup>
         <TargetFramework>net461</TargetFramework>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <Authors>Nikita Burmistrov</Authors>
+        <Description>Provides Microsoft DI container for ASP.NET Web API</Description>
+        <Copyright>Copyright (c) 2022 Nikita Burmistrov</Copyright>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <RepositoryUrl>https://github.com/burmistrov-tech/extensions-dependencyresolver</RepositoryUrl>
+        <RepositoryType>git</RepositoryType>
+        <PackageVersion>1.0.0</PackageVersion>
     </PropertyGroup>
 
     <ItemGroup>
