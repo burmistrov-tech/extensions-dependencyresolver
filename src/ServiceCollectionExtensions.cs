@@ -26,7 +26,7 @@ namespace BurmistrovTech.Extensions.DependencyResolver
             return services;
         }
 
-        public static IDependencyResolver ToDependencyResolver(this IServiceCollection services)
+        public static DependencyInjectionResolver ToDependencyResolver(this IServiceCollection services)
         {
             if (services == null) throw new ArgumentNullException(nameof(services));
             
