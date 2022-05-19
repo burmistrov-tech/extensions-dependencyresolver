@@ -6,7 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace BurmistrovTech.Extensions.DependencyResolver
 {
-    public class DependencyInjectionResolver : IDependencyInjectionResolver
+    public class DependencyInjectionResolver : IDependencyResolver, IServiceProvider, IAsyncDisposable
     {
         private readonly IServiceProvider _serviceProvider;
         private bool _disposed;
