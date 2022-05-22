@@ -49,10 +49,10 @@ namespace BurmistrovTech.Extensions.DependencyResolver
         {
             if (_disposed) return default;
             
-            if (_serviceProvider is IAsyncDisposable ad)
+            if (_serviceProvider is IAsyncDisposable asyncDisposable)
             {
                 _disposed = true;
-                return ad.DisposeAsync();
+                return asyncDisposable.DisposeAsync();
             }
             
             Dispose();
